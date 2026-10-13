@@ -59,3 +59,16 @@ export interface TravelState {
   itinerary: ItineraryItem[];
   expenses: Expense[];
 }
+
+// add data shape to retrieve rating, number or ratings, phone, website, opeational hours
+// photo URLs, and a specific user reviews
+export interface PlaceExtras {
+  rating?: number;
+  ratingCount?: number;
+  phone?: string;
+  website?: string;
+  hours: string;
+  photoUrls: string[];
+  reviews: { author: string; rating: number | null; text: string}[];
+
+}
