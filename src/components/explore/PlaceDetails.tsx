@@ -1,4 +1,5 @@
 import type { Place } from "../../types";
+import { PlaceExtrasSection } from "./PlaceExtrasSection";
 
 export function PlaceDetails({ place, isSaved, onAdd }: { place: Place | null; isSaved: boolean; onAdd: () => void }) {
   if (!place) return <div className="place-details-empty"><span>⌖</span><h3>Select a place</h3><p>Search for a restaurant, hotel, landmark, or activity to see details and add it to the trip.</p></div>;
@@ -12,6 +13,7 @@ export function PlaceDetails({ place, isSaved, onAdd }: { place: Place | null; i
         <div className="place-title-row"><div><h2>{place.name}</h2>{place.rating && <span className="rating">★ {place.rating.toFixed(1)} <small>Google rating</small></span>}</div><span className="selected-check">✓</span></div>
         <p><span>⌖</span>{place.address}</p>
         <div className="coordinate-row"><small>LAT {place.latitude.toFixed(5)}</small><small>LNG {place.longitude.toFixed(5)}</small></div>
+        <PlaceExtrasSection placeId={place.placeId} />
         <button type="button" className={`button button--full ${isSaved ? "button--saved" : "button--primary"}`} onClick={onAdd} disabled={isSaved}>{isSaved ? "✓ Added to trip" : "+ Add to trip"}</button>
       </div>
     </article>
