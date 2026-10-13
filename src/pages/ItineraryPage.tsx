@@ -3,6 +3,7 @@ import { EmptyState } from "../components/EmptyState";
 import { PageHeader } from "../components/PageHeader";
 import { useTravel } from "../context/TravelContext";
 import { getDayLabel, getTripDayCount } from "../utils/format";
+import { DayTravel } from "../components/itinerary/DayTravel";
 
 export function ItineraryPage() {
   const { trip, itinerary, assignPlaceToDay, removePlace, movePlace } = useTravel();
@@ -35,6 +36,7 @@ export function ItineraryPage() {
                 {dayItems.length === 0 ? (
                   <div className="day-empty"><span>＋</span> Assign a saved place to this day</div>
                 ) : (
+                  <>
                   <div className="itinerary-list">
                     {dayItems.map((item, itemIndex) => (
                       <article className="itinerary-card" key={item.placeId}>
@@ -44,7 +46,9 @@ export function ItineraryPage() {
                         <div className="item-controls"><button type="button" aria-label={`Move ${item.name} earlier`} onClick={() => movePlace(item.placeId, -1)} disabled={itinerary.findIndex((place) => place.placeId === item.placeId) === 0}>↑</button><button type="button" aria-label={`Move ${item.name} later`} onClick={() => movePlace(item.placeId, 1)} disabled={itinerary.findIndex((place) => place.placeId === item.placeId) === itinerary.length - 1}>↓</button><button type="button" className="remove-button" aria-label={`Remove ${item.name}`} onClick={() => removePlace(item.placeId)}>×</button></div>
                       </article>
                     ))}
-                  </div>
+                    </div>
+                    <DayTravel stops={dayItems} />
+                    </>
                 )}
               </section>
             );
